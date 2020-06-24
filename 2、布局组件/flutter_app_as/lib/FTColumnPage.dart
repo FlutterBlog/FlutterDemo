@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 线性布局
 class FTColumnPage extends StatefulWidget {
   FTColumnPage({Key key}) : super(key: key);
 
@@ -84,10 +85,10 @@ class _FTColumnPageState extends State<FTColumnPage> {
                   Container(
                     color: Colors.red,
                     child: Column(
-                      mainAxisSize: MainAxisSize.max, //无效，内层Colum高度为实际高度
+                      mainAxisAlignment: MainAxisAlignment.center, //无效，内层Colum高度为实际高度
                       children: <Widget>[
-                        Text("hello world "),
-                        Text("I am Jack "),
+                        Text(" hello world hello world "),
+                        Text(" I am XXX "),
                       ],
                     ),
                   )

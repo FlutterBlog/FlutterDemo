@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'FTColumnPage.dart';
+import 'FTFlexPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -40,6 +41,13 @@ class _FTHomePageState extends State<FTHomePage> {
               child: Text("Flex", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
               onPressed: () {
                 print("onPressed:");
+                
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context){
+                    return FTFlexPage();
+                  }),
+                );
+                
               },
             ),
 
