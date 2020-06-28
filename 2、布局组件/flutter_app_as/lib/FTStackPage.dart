@@ -19,7 +19,7 @@ class FTStackPage extends StatelessWidget {
         constraints: BoxConstraints.expand(),
         child: Stack(
           alignment: Alignment.center,
-          fit: StackFit.expand,//未定位 Widget 占满 Stack 空间
+          // fit: StackFit.expand,//未定位 Widget 占满 Stack 空间
           children: <Widget>[
 
             Container(

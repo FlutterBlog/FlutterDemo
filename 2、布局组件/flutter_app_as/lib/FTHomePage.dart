@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'FTColumnPage.dart';
 import 'FTFlexPage.dart';
 import 'FTStackPage.dart';
+import 'FTAlignPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -77,9 +78,15 @@ class _FTHomePageState extends State<FTHomePage> {
               child: Text("Align", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
               onPressed: () {
                 print("onPressed:");
+
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context){
+                    return FTAlignPage();
+                  }),
+                );
+
               },
             ),
-
           ],
         ),
       ),
