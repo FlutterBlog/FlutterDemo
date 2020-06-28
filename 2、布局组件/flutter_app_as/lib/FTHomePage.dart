@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'FTColumnPage.dart';
 import 'FTFlexPage.dart';
+import 'FTStackPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -62,6 +63,13 @@ class _FTHomePageState extends State<FTHomePage> {
               child: Text("Stack", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
               onPressed: () {
                 print("onPressed:");
+
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context){
+                    return FTStackPage();
+                  }),
+                );
+
               },
             ),
 
