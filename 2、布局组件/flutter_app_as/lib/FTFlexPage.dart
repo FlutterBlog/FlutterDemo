@@ -6,7 +6,7 @@ class FTFlexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("FTColumnPage"),
+        title: Text("FTFlexPage"),
       ),
       body: Column(
         children: <Widget>[

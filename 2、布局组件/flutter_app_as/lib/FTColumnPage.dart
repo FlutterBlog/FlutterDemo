@@ -61,15 +61,15 @@ class _FTColumnPageState extends State<FTColumnPage> {
 //        ],
 //      ),
 
-//      body: Column(
-//        crossAxisAlignment: CrossAxisAlignment.center,
-//        children: <Widget>[
-//
-//          Text(" 123456 "),
-//          Text(" 10JQKA10JQKA "),
-//
-//        ],
-//      ),
+    //  body: Column(
+    //    crossAxisAlignment: CrossAxisAlignment.center,
+    //    children: <Widget>[
+
+    //      Text(" 123456 "),
+    //      Text(" 10JQKA10JQKA "),
+
+    //    ],
+    //  ),
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
