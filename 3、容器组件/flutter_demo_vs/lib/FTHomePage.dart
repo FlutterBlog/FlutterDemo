@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'FTPaddingPage.dart';
+import 'FTScaffoldPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -22,72 +23,27 @@ class _FTHomePageState extends State<FTHomePage> {
           children: <Widget>[
             RaisedButton(
               child: Text(
-                "Padding",
+                "gotoTextPage",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
-                print("onPressed:");
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return FTDecoratedBoxPage();
-                  }),
-                );
+                //
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return FTContainerPage();
+                }));
               },
             ),
+            Text(""),
             RaisedButton(
               child: Text(
-                "ConstrainedBox",
+                "Scaffold&&TabBar",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
-                print("onPressed:");
-              },
-            ),
-            RaisedButton(
-              child: Text(
-                "DecoratedBox",
-                style: TextStyle(fontSize: 26.0, color: Colors.blue),
-              ),
-              onPressed: () {
-                print("onPressed:");
-              },
-            ),
-            RaisedButton(
-              child: Text(
-                "Transform",
-                style: TextStyle(fontSize: 26.0, color: Colors.blue),
-              ),
-              onPressed: () {
-                print("onPressed:");
-              },
-            ),
-            RaisedButton(
-              child: Text(
-                "Container",
-                style: TextStyle(fontSize: 26.0, color: Colors.blue),
-              ),
-              onPressed: () {
-                print("onPressed:");
-              },
-            ),
-            RaisedButton(
-              child: Text(
-                "Tabbar",
-                style: TextStyle(fontSize: 26.0, color: Colors.blue),
-              ),
-              onPressed: () {
-                print("onPressed:");
-              },
-            ),
-            RaisedButton(
-              child: Text(
-                "Clip",
-                style: TextStyle(fontSize: 26.0, color: Colors.blue),
-              ),
-              onPressed: () {
-                print("onPressed:");
+                //
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return FTScaffoldPage();
+                }));
               },
             ),
           ],
