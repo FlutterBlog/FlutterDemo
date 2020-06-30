@@ -31,7 +31,7 @@ class _FTHomePageState extends State<FTHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return FTPaddingPage();
+                    return FTDecoratedBoxPage();
                   }),
                 );
               },
