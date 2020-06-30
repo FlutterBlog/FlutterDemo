@@ -13,7 +13,6 @@ class FTHomePage extends StatefulWidget {
 }
 
 class _FTHomePageState extends State<FTHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,67 +23,77 @@ class _FTHomePageState extends State<FTHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             RaisedButton(
-              child: Text("Column", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
+              child: Text(
+                "Column",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
               onPressed: () {
                 print("onPressed:");
 
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
                     return FTColumnPage();
                   }),
                 );
-
               },
             ),
-
             RaisedButton(
-              child: Text("Flex", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
+              child: Text(
+                "Flex",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
               onPressed: () {
                 print("onPressed:");
-                
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context){
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
                     return FTFlexPage();
                   }),
                 );
-                
               },
             ),
-
             RaisedButton(
-              child: Text("Flow", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
+              child: Text(
+                "Flow",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
               onPressed: () {
                 print("onPressed:");
               },
             ),
-
             RaisedButton(
-              child: Text("Stack", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
+              child: Text(
+                "Stack",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
               onPressed: () {
                 print("onPressed:");
 
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
                     return FTStackPage();
                   }),
                 );
-
               },
             ),
-
             RaisedButton(
-              child: Text("Align", style: TextStyle(fontSize: 26.0, color: Colors.blue),),
+              child: Text(
+                "Align",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
               onPressed: () {
                 print("onPressed:");
 
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
                     return FTAlignPage();
                   }),
                 );
-
               },
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'FTPaddingPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -21,7 +22,23 @@ class _FTHomePageState extends State<FTHomePage> {
           children: <Widget>[
             RaisedButton(
               child: Text(
-                "Column",
+                "Padding",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
+              onPressed: () {
+                print("onPressed:");
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return FTPaddingPage();
+                  }),
+                );
+              },
+            ),
+            RaisedButton(
+              child: Text(
+                "ConstrainedBox",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
@@ -30,7 +47,7 @@ class _FTHomePageState extends State<FTHomePage> {
             ),
             RaisedButton(
               child: Text(
-                "Flex",
+                "DecoratedBox",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
@@ -39,7 +56,7 @@ class _FTHomePageState extends State<FTHomePage> {
             ),
             RaisedButton(
               child: Text(
-                "Flow",
+                "Transform",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
@@ -48,7 +65,7 @@ class _FTHomePageState extends State<FTHomePage> {
             ),
             RaisedButton(
               child: Text(
-                "Stack",
+                "Container",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
@@ -57,7 +74,16 @@ class _FTHomePageState extends State<FTHomePage> {
             ),
             RaisedButton(
               child: Text(
-                "Align",
+                "Tabbar",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
+              onPressed: () {
+                print("onPressed:");
+              },
+            ),
+            RaisedButton(
+              child: Text(
+                "Clip",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
