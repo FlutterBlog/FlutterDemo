@@ -59,8 +59,35 @@ class _FTScaffoldPageState extends State<FTScaffoldPage>
         ),
       ),
       // 设置抽屉 默认会将左侧按钮设置为菜单按钮
-      // drawer: new MyDrawer(),
+      drawer: new MyDrawer(),
+      // 底部导航栏
+      // bottomNavigationBar: BottomAppBar(
+      //   color: Colors.white,
+      //   shape: CircularNotchedRectangle(),
+      //   child: Row(
+      //     children: <Widget>[
+      //       IconButton(
+      //         icon: Icon(Icons.home),
+      //         onPressed: () {},
+      //       ),
+      //       SizedBox(),
+      //       IconButton(
+      //         icon: Icon(Icons.business),
+      //         onPressed: () {},
+      //       ),
+      //     ],
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //   ),
+      // ),
+      // 设置悬浮按钮位置
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // 底部悬浮按钮
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _onAdd,
+      ),
 
+      // 底部导航栏
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
@@ -75,20 +102,84 @@ class _FTScaffoldPageState extends State<FTScaffoldPage>
         unselectedItemColor: Colors.black26,
         onTap: _onItemTapped,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: _onAdd,
+
+      body: TabBarView(
+        controller: _tabController,
+        children: tabs.map((e) {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(e, textScaleFactor: 3),
+          );
+        }).toList(),
       ),
-      body: Column(
-        children: <Widget>[
-          // Text("你好", style: TextStyle(color: Colors.red, fontSize: 20.0)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("你好", style: TextStyle(color: Colors.purple, fontSize: 20.0))
-            ],
-          ),
-        ],
+      // body: Column(
+      //   children: <Widget>[
+      //     // Text("你好", style: TextStyle(color: Colors.red, fontSize: 20.0)),
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Text("你好", style: TextStyle(color: Colors.purple, fontSize: 20.0))
+      //       ],
+      //     ),
+      //   ],
+      // ),
+    );
+  }
+}
+
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: MediaQuery.removePadding(
+        context: context,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 38.0),
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 38.0),
+                    child: ClipOval(
+                      child: Image(
+                        image: AssetImage("testPic/my_icon.png"),
+                        width: 88,
+                      ),
+                    ),
+                  ),
+                  Text("data", style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Expanded(
+                child: ListView(
+              children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.add),
+                  title: const Text("add"),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.local_gas_station),
+                  title: const Text("gas"),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings),
+                  title: const Text("settings"),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.youtube_searched_for),
+                  title: const Text("searched"),
+                ),
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

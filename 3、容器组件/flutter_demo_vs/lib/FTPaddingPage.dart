@@ -1,6 +1,81 @@
 import 'package:flutter/material.dart';
 // import 'dart:math' as math;
 
+// 裁剪
+class FTClipPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 创建一个头像
+    Widget avatar = Image.asset("testPic/my_icon.png", width: 60.0);
+    //
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("FTClipPage"),
+      ),
+      body: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("裁剪", style: TextStyle(color: Colors.purple, fontSize: 18.0))
+            ],
+          ),
+          avatar,
+          //圆角
+          ClipOval(child: avatar),
+          //5像素圆角
+          ClipRRect(child: avatar, borderRadius: BorderRadius.circular(5.0)),
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                widthFactor: .5, //宽度设为原来宽度一半，另一半会溢出
+                child: avatar,
+              ),
+              Text(
+                "你好世界",
+                style: TextStyle(color: Colors.green),
+              )
+            ],
+          ),
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ClipRect(
+                //将溢出部分剪裁
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  widthFactor: .5, //宽度设为原来宽度一半
+                  child: avatar,
+                ),
+              ),
+              Text("你好世界", style: TextStyle(color: Colors.green))
+            ],
+          ),
+          DecoratedBox(
+            decoration: BoxDecoration(color: Colors.red),
+            child: ClipRect(
+              clipper: MyClipper(), //使用自定义的clipper
+              child: avatar,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) => Rect.fromLTWH(10.0, 15.0, 40.0, 30.0);
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
+}
+
 // 变换
 class FTContainerPage extends StatelessWidget {
   @override
@@ -228,7 +303,7 @@ class FTConstrainedBoxPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("FTConstrainedBoxPage"),
         actions: <Widget>[
-          // 在AppBar中直接添加 actions ��子控件 SizedBox 宽高设置无效
+          // 在AppBar中直接添加 actions ���子控件 SizedBox 宽高设置���效
           // SizedBox(
           //   width: 20,
           //   height: 20,

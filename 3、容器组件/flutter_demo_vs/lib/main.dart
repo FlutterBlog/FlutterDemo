@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'FTHomePage.dart';
-import 'FTScaffoldPage.dart';
+import 'FTHomePage.dart';
+// import 'FTScaffoldPage.dart';
 
 // 程序主函数
 void main() => runApp(MyApp());
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // home: FTHomePage(title: 'FTHomePage'),
-      home: FTScaffoldPage(),
+      home: FTHomePage(title: 'FTHomePage'),
+      // home: FTScaffoldPage(),
     );
   }
 }

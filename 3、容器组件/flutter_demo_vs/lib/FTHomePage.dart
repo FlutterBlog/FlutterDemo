@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'FTPaddingPage.dart';
-import 'FTScaffoldPage.dart';
+// import 'FTScaffoldPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -36,13 +36,13 @@ class _FTHomePageState extends State<FTHomePage> {
             Text(""),
             RaisedButton(
               child: Text(
-                "Scaffold&&TabBar",
+                "Clip",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
                 //
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return FTScaffoldPage();
+                  return FTClipPage();
                 }));
               },
             ),
