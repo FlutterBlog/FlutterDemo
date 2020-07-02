@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'WillPopScopeTestRoute.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -21,27 +22,25 @@ class _FTHomePageState extends State<FTHomePage> {
           children: <Widget>[
             RaisedButton(
               child: Text(
-                "button111",
+                "WillPopScopeTestRoute",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
-                //
-                // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                // return FTContainerPage();
-                // }));
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return WillPopScopeTestRoute();
+                }));
               },
             ),
             Text(""),
             RaisedButton(
               child: Text(
-                "button222",
+                "WillPopScopeTestRoute",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
-                //
-                // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                //   return FTClipPage();
-                // }));
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return WillPopScopeTestRoute();
+                }));
               },
             ),
           ],
