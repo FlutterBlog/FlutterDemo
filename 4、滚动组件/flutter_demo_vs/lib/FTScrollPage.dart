@@ -22,6 +22,7 @@ class _FTScrollEventPageState extends State<FTScrollEventPage> {
             });
             print(_progress);
             print("BottomEdge: ${notification.metrics.extentAfter == 0}");
+            // return true;
           },
           child: Stack(
             alignment: Alignment.center,
@@ -35,6 +36,11 @@ class _FTScrollEventPageState extends State<FTScrollEventPage> {
                   );
                 },
               ),
+              CircleAvatar(
+                radius: 30,
+                child: Text(_progress),
+                backgroundColor: Colors.black54,
+              )
             ],
           ),
         ),
