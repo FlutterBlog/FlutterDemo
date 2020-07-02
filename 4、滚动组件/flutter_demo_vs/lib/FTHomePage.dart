@@ -26,7 +26,7 @@ class _FTHomePageState extends State<FTHomePage> {
             Text(""),
             RaisedButton(
               child: Text(
-                "Scroll",
+                "ScrollView",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
