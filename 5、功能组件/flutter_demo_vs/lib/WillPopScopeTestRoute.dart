@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 返回拦截
 class WillPopScopeTestRoute extends StatefulWidget {
   @override
   _WillPopScopeTestRouteState createState() => _WillPopScopeTestRouteState();
@@ -53,6 +54,7 @@ class _WillPopScopeTestRouteState extends State<WillPopScopeTestRoute> {
   }
 }
 
+// 一个简单的新页面
 class WillPopScopeTestRoute111 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

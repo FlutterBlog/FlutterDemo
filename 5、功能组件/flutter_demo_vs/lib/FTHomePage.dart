@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'WillPopScopeTestRoute.dart';
+import 'FTInheritedWidgetPage.dart';
+import 'FTProviderPage.dart';
+import 'FTDialogPage.dart';
 
 class FTHomePage extends StatefulWidget {
   FTHomePage({Key key, this.title}) : super(key: key);
@@ -22,7 +25,7 @@ class _FTHomePageState extends State<FTHomePage> {
           children: <Widget>[
             RaisedButton(
               child: Text(
-                "WillPopScopeTestRoute",
+                "WillPopScope",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
@@ -34,12 +37,37 @@ class _FTHomePageState extends State<FTHomePage> {
             Text(""),
             RaisedButton(
               child: Text(
-                "WillPopScopeTestRoute",
+                "InheritedWidget",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return WillPopScopeTestRoute();
+                  return InheritedWidgetTestRoute();
+                }));
+              },
+            ),
+            Text(""),
+            RaisedButton(
+              child: Text(
+                "ProviderWidget",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  // return FTProviderPage();
+                  return ThemeTestRoute();
+                }));
+              },
+            ),
+            Text(""),
+            RaisedButton(
+              child: Text(
+                "Dialog",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return FTDialogPage();
                 }));
               },
             ),
