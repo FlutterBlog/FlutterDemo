@@ -8,6 +8,7 @@ class Repo {
 
   num id;
   String name;
+  // ignore: non_constant_identifier_names
   String full_name;
   User owner;
   Repo parent;
@@ -15,14 +16,22 @@ class Repo {
   String description;
   bool fork;
   String language;
+  // ignore: non_constant_identifier_names
   num forks_count;
+  // ignore: non_constant_identifier_names
   num stargazers_count;
   num size;
+  // ignore: non_constant_identifier_names
   String default_branch;
+  // ignore: non_constant_identifier_names
   num open_issues_count;
+  // ignore: non_constant_identifier_names
   String pushed_at;
+  // ignore: non_constant_identifier_names
   String created_at;
+  // ignore: non_constant_identifier_names
   String updated_at;
+  // ignore: non_constant_identifier_names
   num subscribers_count;
   Map<String, dynamic> license;
 
