@@ -11,6 +11,7 @@ class _FTPage3State extends State<FTPage3> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   TabController _tabController;
   TabBarView _tabBarView;
+  AppBar _appBar;
   List tabs = ["学习", "课堂"];
   List<Widget> pages = [
     FTStudyPage(),
@@ -29,34 +30,39 @@ class _FTPage3State extends State<FTPage3> with SingleTickerProviderStateMixin {
     super.initState();
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabBarView = TabBarView(controller: _tabController, children: pages);
+    _appBar = AppBar(
+      backgroundColor: Colors.white,
+      titleSpacing: 145.0,
+      title: TabBar(
+        controller: _tabController,
+        tabs: tabs.map((e) => Tab(text: e)).toList(),
+        onTap: _onItemTapped,
+        indicatorWeight: 2,
+        indicatorPadding: EdgeInsets.only(left: 10, right: 10),
+        labelPadding: EdgeInsets.symmetric(horizontal: 10),
+        isScrollable: true,
+        indicatorColor: Colors.blue,
+        labelColor: Colors.blue,
+        labelStyle: TextStyle(
+          fontSize: 22.0,
+          color: Colors.blue,
+          fontWeight: FontWeight.w500,
+        ),
+        unselectedLabelColor: Color(0xffAAAAAA),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 22.0,
+          color: Color(0xffAAAAAA),
+        ),
+        indicatorSize: TabBarIndicatorSize.label,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('课堂'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: tabs.map((e) => Tab(text: e)).toList(),
-          onTap: _onItemTapped,
-        ),
-      ),
+      appBar: _appBar,
       body: _tabBarView,
     );
-    // return Scaffold(
-    //   appBar: AppBar(),
-    //   body: Column(
-    //     children: <Widget>[
-    //       Text(""),
-    //       TabBar(
-    //         controller: _tabController,
-    //         tabs: tabs.map((e) => Tab(text: e)).toList(),
-    //         onTap: _onItemTapped,
-    //       ),
-    //       _tabBarView,
-    //     ],
-    //   ),
-    // );
   }
 }

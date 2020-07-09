@@ -81,8 +81,8 @@ class FTNetManager {
       // 配置dio请求信息
       Response response;
       Dio dio = new Dio();
-      dio.options.connectTimeout = 10000; // 服务器链接超时，毫秒
-      dio.options.receiveTimeout = 3000; // 响应流上前后两次接受到数据的间隔，毫秒
+      dio.options.connectTimeout = 100000; // 服务器链接超时，毫秒
+      dio.options.receiveTimeout = 30000; // 响应流上前后两次接受到数据的间隔，毫秒
       dio.options.headers.addAll(headersMap); // 添加headers,统一设置Header
 
       switch (method) {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_miniapp/models/CourseListModel.dart';
+import '../../models/CourseListModel.dart';
+import '../../models/CourseListModel.dart';
+import '../../models/CourseListModel.dart';
 import '../../network/FTNetManager.dart';
 import '../../models/CourseListModel.dart';
 import '../../models/CourseEntModel.dart';
@@ -28,12 +31,12 @@ class _FTCoursePageState extends State<FTCoursePage>
     _tabController = TabController(vsync: this, length: 5);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollViewController.dispose();
-    _tabController.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _scrollViewController.dispose();
+  //   _tabController.dispose();
+  // }
 
   void _requestBanner() {
     _isLoading = true;
@@ -67,8 +70,6 @@ class _FTCoursePageState extends State<FTCoursePage>
       // print(courseDataList);
 
       List _courseModelList = courseDataList.map((e) {
-        print(e);
-
         CourseListModel listModel = CourseListModel(
           e["name"],
           e["type"],
@@ -77,14 +78,14 @@ class _FTCoursePageState extends State<FTCoursePage>
 
         var classDataList = listModel.course;
         switch (listModel.type) {
-          case "1":
+          case 1:
             //公开课
             List<CourseFreeClassModel> _classModelList = classDataList
                 .map((e) => CourseFreeClassModel.fromJson(e))
                 .toList();
             listModel.course = _classModelList;
             break;
-          case "2":
+          case 2:
             //班课
             List<CourseVipClassModel> _classModelList = classDataList
                 .map((e) => CourseVipClassModel.fromJson(e))
@@ -125,7 +126,6 @@ class _FTCoursePageState extends State<FTCoursePage>
     if (_isLoading) {
       return CircularProgressIndicator();
     } else {
-      // return _returnCustomScrollWidget();
       return _returnScrollWidget();
     }
   }
@@ -136,6 +136,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
+            backgroundColor: Colors.white,
             pinned: true,
             floating: true,
             expandedHeight: 250,
@@ -146,35 +147,44 @@ class _FTCoursePageState extends State<FTCoursePage>
                 color: Colors.white,
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: 20.0, left: 20.0, right: 20.0, bottom: 50),
-                  child: Image(
-                    image: NetworkImage(
-                        "http://pic.sc.chinaz.com/files/pic/pic9/202006/bpic20606.jpg"),
-                    fit: BoxFit.cover,
+                      top: 20.0, left: 20.0, right: 20.0, bottom: 55),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image(
+                      image: NetworkImage(
+                          "http://pic.sc.chinaz.com/files/pic/pic9/202006/bpic20606.jpg"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
             ),
             bottom: TabBar(
               controller: _tabController,
-              indicatorColor: Colors.black54,
               tabs: [
-                Tab(
-                  child: Text("推荐", style: TextStyle(color: Colors.black54)),
-                ),
-                Tab(
-                  child: Text("专业课", style: TextStyle(color: Colors.black54)),
-                ),
-                Tab(
-                  child: Text("政治", style: TextStyle(color: Colors.black54)),
-                ),
-                Tab(
-                  child: Text("英语", style: TextStyle(color: Colors.black54)),
-                ),
-                Tab(
-                  child: Text("复试", style: TextStyle(color: Colors.black54)),
-                ),
+                Text("推荐"),
+                Text("专业课"),
+                Text("英语"),
+                Text("政治"),
+                Text("复试"),
               ],
+              indicatorWeight: 1,
+              indicatorPadding: EdgeInsets.only(left: 10, right: 10),
+              labelPadding: EdgeInsets.symmetric(horizontal: 16),
+              isScrollable: true,
+              indicatorColor: Colors.blue,
+              labelColor: Colors.blue,
+              labelStyle: TextStyle(
+                fontSize: 22.0,
+                color: Colors.blue,
+                fontWeight: FontWeight.w500,
+              ),
+              unselectedLabelColor: Color(0xffAAAAAA),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 22.0,
+                color: Color(0xffAAAAAA),
+              ),
+              indicatorSize: TabBarIndicatorSize.label,
             ),
           )
         ];
@@ -182,28 +192,47 @@ class _FTCoursePageState extends State<FTCoursePage>
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          _buildListView("aaa:"),
-          _buildListView("bbb:"),
-          _buildListView("ccc:"),
-          _buildListView("ddd:"),
-          _buildListView("eee:"),
+          _buildListView(0),
+          _buildListView(1),
+          _buildListView(2),
+          _buildListView(3),
+          _buildListView(4),
         ],
       ),
     );
   }
 
-  Widget _buildListView(String s) {
+  Widget _buildListView(int groupID) {
     return ListView.separated(
-        itemCount: 20,
+        itemCount: _dataList.length > 0 ? _dataList.first.course.length : 0,
         separatorBuilder: (BuildContext context, int index) => Divider(
               color: Colors.grey,
               height: 1,
             ),
         itemBuilder: (BuildContext context, int index) {
           return Container(
-              color: Colors.white,
-              child: ListTile(title: Text("$s第$index 个条目")));
+            color: Colors.white,
+            child: _returnListItem(groupID, index),
+          );
         });
+  }
+
+  Widget _returnListItem(int groupID, int idx) {
+    if (groupID == 0) {
+      CourseListModel groupModel = _dataList.first;
+
+      switch (groupModel.type) {
+        case 1:
+          CourseFreeClassModel classModel = groupModel.course[idx];
+          return ListTile(title: Text(classModel.name));
+        case 2:
+          CourseVipClassModel classModel = groupModel.course[idx];
+          return ListTile(title: Text(classModel.name));
+        default:
+          break;
+      }
+    }
+    return ListTile(title: Text("第 $idx 个条目"));
   }
 
   Widget _returnCustomScrollWidget() {
