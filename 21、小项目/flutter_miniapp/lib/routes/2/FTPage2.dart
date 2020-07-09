@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import '../../network/FTNetManager.dart';
 
 class FTPage2 extends StatefulWidget {
   @override
@@ -9,26 +8,10 @@ class FTPage2 extends StatefulWidget {
 
 class _FTPage2State extends State<FTPage2> {
   Dio _dio = new Dio();
-  List _data = [];
 
   @override
   void initState() {
     super.initState();
-    // _requestData();
-  }
-
-  void _requestData() {
-    FTNetManager.get(
-      "https://api.github.com/orgs/flutterchina/repos",
-      success: (data) {
-        setState(() {
-          print(data);
-        });
-      },
-      error: (error) {
-        print(error);
-      },
-    );
   }
 
   @override
@@ -39,10 +22,6 @@ class _FTPage2State extends State<FTPage2> {
       ),
       body: new Container(
         alignment: Alignment.center,
-        // child: ListView(
-        //   children: _data.map<Widget>((e) => ListTile(title: e["full_name"])),
-        // ),
-
         child: FutureBuilder(
           future: _dio.get("https://api.github.com/orgs/flutterchina/repos"),
           builder: (BuildContext context, AsyncSnapshot snapshot) {

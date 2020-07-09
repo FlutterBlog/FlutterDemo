@@ -12,7 +12,7 @@ const NMMethodValues = {
 
 class BaseUrl {
   // 配置默认请求地址
-  static const String url = 'http://127.0.0.1';
+  static const String url = 'https://api.github.com';
 }
 
 class FTNetManager {
@@ -23,15 +23,16 @@ class FTNetManager {
       Function success,
       Function error}) async {
     // 数据拼接
-    if (data != null && data.isNotEmpty) {
-      StringBuffer options = new StringBuffer('?');
-      data.forEach((key, value) {
-        options.write('${key}=${value}&');
-      });
-      String optionsStr = options.toString();
-      optionsStr = optionsStr.substring(0, optionsStr.length - 1);
-      url += optionsStr;
-    }
+    // if (data != null && data.isNotEmpty) {
+    //   StringBuffer options = new StringBuffer('?');
+    //   data.forEach((key, value) {
+    //     // ignore: unnecessary_brace_in_string_interps
+    //     options.write('${key}=${value}&');
+    //   });
+    //   String optionsStr = options.toString();
+    //   optionsStr = optionsStr.substring(0, optionsStr.length - 1);
+    //   url += optionsStr;
+    // }
 
     // 发送get请求
     await _sendRequest(
@@ -64,7 +65,7 @@ class FTNetManager {
       {Map<String, dynamic> data,
       Map<String, dynamic> headers,
       Function error}) async {
-    int _code;
+    // int _code;
     String _msg;
     var _backData;
 
@@ -104,19 +105,27 @@ class FTNetManager {
         return;
       }
 
-      // 返回结果处理
-      Map<String, dynamic> resCallbackMap = response.data;
-      _code = resCallbackMap['code'];
-      _msg = resCallbackMap['msg'];
-      _backData = resCallbackMap['data'];
+      // 数据请求成功
+      // print(response.data);
+
+      if (response.data is Map) {
+        Map<String, dynamic> _resCallbackMap = response.data;
+        _backData = _resCallbackMap;
+      } else if (response.data is List) {
+        List _resCallbackList = response.data;
+        _backData = _resCallbackList;
+      } else {
+        _backData = response.data;
+      }
 
       if (success != null) {
-        if (_code == 0) {
-          success(_backData);
-        } else {
-          String errorMsg = _code.toString() + ':' + _msg;
-          _handError(error, errorMsg);
-        }
+        success(_backData);
+        // if (_code == 0) {
+        //   success(_backData);
+        // } else {
+        //   String errorMsg = _code.toString() + ':' + _msg;
+        //   _handError(error, errorMsg);
+        // }
       }
     } catch (exception) {
       _handError(error, '数据请求错误：' + exception.toString());
