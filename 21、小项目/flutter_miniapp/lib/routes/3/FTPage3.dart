@@ -44,5 +44,19 @@ class _FTPage3State extends State<FTPage3> with SingleTickerProviderStateMixin {
       ),
       body: _tabBarView,
     );
+    // return Scaffold(
+    //   appBar: AppBar(),
+    //   body: Column(
+    //     children: <Widget>[
+    //       Text(""),
+    //       TabBar(
+    //         controller: _tabController,
+    //         tabs: tabs.map((e) => Tab(text: e)).toList(),
+    //         onTap: _onItemTapped,
+    //       ),
+    //       _tabBarView,
+    //     ],
+    //   ),
+    // );
   }
 }

@@ -1,14 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'courseEntModel.g.dart';
-
-@JsonSerializable()
 class CourseEntModel {
-    CourseEntModel();
+  var id;
+  String name;
 
-    num id;
-    String name;
-    
-    factory CourseEntModel.fromJson(Map<String,dynamic> json) => _$CourseEntModelFromJson(json);
-    Map<String, dynamic> toJson() => _$CourseEntModelToJson(this);
+  CourseEntModel(this.id, this.name);
+
+  CourseEntModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'] as String;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'name': name,
+      };
 }
