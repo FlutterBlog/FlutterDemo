@@ -143,7 +143,7 @@ class _FTCoursePageState extends State<FTCoursePage>
               collapseMode: CollapseMode.pin,
               background: Container(
                 height: double.infinity,
-                color: Color(0xffcccccc),
+                color: Colors.white,
                 child: Container(
                   margin: EdgeInsets.only(
                       top: 20.0, left: 20.0, right: 20.0, bottom: 50),
@@ -155,13 +155,27 @@ class _FTCoursePageState extends State<FTCoursePage>
                 ),
               ),
             ),
-            bottom: TabBar(controller: _tabController, tabs: [
-              Tab(text: "aaa"),
-              Tab(text: "bbb"),
-              Tab(text: "ccc"),
-              Tab(text: "ddd"),
-              Tab(text: "eee"),
-            ]),
+            bottom: TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.black54,
+              tabs: [
+                Tab(
+                  child: Text("推荐", style: TextStyle(color: Colors.black54)),
+                ),
+                Tab(
+                  child: Text("专业课", style: TextStyle(color: Colors.black54)),
+                ),
+                Tab(
+                  child: Text("政治", style: TextStyle(color: Colors.black54)),
+                ),
+                Tab(
+                  child: Text("英语", style: TextStyle(color: Colors.black54)),
+                ),
+                Tab(
+                  child: Text("复试", style: TextStyle(color: Colors.black54)),
+                ),
+              ],
+            ),
           )
         ];
       },

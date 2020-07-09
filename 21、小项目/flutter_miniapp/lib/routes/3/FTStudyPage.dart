@@ -54,7 +54,7 @@ class _FTStudyPageState extends State<FTStudyPage> {
     return Scaffold(
       body: new Container(
         alignment: Alignment.center,
-        child: _returnWidget(),
+        // child: _returnWidget(),
       ),
     );
   }
