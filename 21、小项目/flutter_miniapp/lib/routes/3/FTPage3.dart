@@ -31,8 +31,9 @@ class _FTPage3State extends State<FTPage3> with SingleTickerProviderStateMixin {
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabBarView = TabBarView(controller: _tabController, children: pages);
     _appBar = AppBar(
-      backgroundColor: Colors.white,
-      titleSpacing: 145.0,
+      backgroundColor: Colors.grey[50],
+      elevation: 0,
+      titleSpacing: 120.0,
       title: TabBar(
         controller: _tabController,
         tabs: tabs.map((e) => Tab(text: e)).toList(),
@@ -44,13 +45,13 @@ class _FTPage3State extends State<FTPage3> with SingleTickerProviderStateMixin {
         indicatorColor: Colors.blue,
         labelColor: Colors.blue,
         labelStyle: TextStyle(
-          fontSize: 22.0,
+          fontSize: 20.0,
           color: Colors.blue,
           fontWeight: FontWeight.w500,
         ),
         unselectedLabelColor: Color(0xffAAAAAA),
         unselectedLabelStyle: TextStyle(
-          fontSize: 22.0,
+          fontSize: 20.0,
           color: Color(0xffAAAAAA),
         ),
         indicatorSize: TabBarIndicatorSize.label,
