@@ -55,7 +55,7 @@ class _FTStudyPageState extends State<FTStudyPage> {
       body: new Container(
         color: Colors.grey[100],
         alignment: Alignment.center,
-        // child: _returnWidget(),
+         child: _returnWidget(),
       ),
     );
   }

@@ -64,7 +64,9 @@ class CourseVipClassModel {
   String subtitle;
   String template;
   String price;
-  String unums;
+  String uNums;
+  String tagUrl;
+  List tList;
 
   CourseVipClassModel(
     this.id,
@@ -73,7 +75,9 @@ class CourseVipClassModel {
     this.subtitle,
     this.template,
     this.price,
-    this.unums,
+    this.uNums,
+    this.tagUrl,
+    this.tList,
   );
 
   CourseVipClassModel.fromJson(Map<String, dynamic> json)
@@ -83,5 +87,7 @@ class CourseVipClassModel {
         subtitle = json['subtitle'],
         template = json['template'],
         price = json['price'],
-        unums = json['unums'];
+        uNums = json['unums'],
+        tagUrl = json['tagurl'],
+        tList = json['tlist'];
 }

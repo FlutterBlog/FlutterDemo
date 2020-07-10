@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_miniapp/models/CourseListModel.dart';
 import '../../models/CourseListModel.dart';
-import '../../models/CourseListModel.dart';
-import '../../models/CourseListModel.dart';
 import '../../network/FTNetManager.dart';
-import '../../models/CourseListModel.dart';
 import '../../models/CourseEntModel.dart';
 import 'dart:convert';
-import 'package:json_annotation/json_annotation.dart';
+//import 'package:json_annotation/json_annotation.dart';
 
 class FTCoursePage extends StatefulWidget {
   @override
@@ -46,11 +43,11 @@ class _FTCoursePageState extends State<FTCoursePage>
     FTNetManager.get(bannerUrl, success: (data) {
       Map dataMap = json.decode(data);
       Map<String, dynamic> resDic = dataMap["res"];
-      print(resDic);
+//      print(resDic);
 
       var list = resDic["ent"] as List;
       List<CourseEntModel> modelList =
-          list.map((e) => CourseEntModel.fromJson(e)).toList();
+      list.map((e) => CourseEntModel.fromJson(e)).toList();
       setState(() {
         _endList = modelList;
       });
@@ -79,21 +76,21 @@ class _FTCoursePageState extends State<FTCoursePage>
         var classDataList = listModel.course;
         switch (listModel.type) {
           case 1:
-            //公开课
+          //公开课
             List<CourseFreeClassModel> _classModelList = classDataList
                 .map((e) => CourseFreeClassModel.fromJson(e))
                 .toList();
             listModel.course = _classModelList;
             break;
           case 2:
-            //班课
+          //班课
             List<CourseVipClassModel> _classModelList = classDataList
                 .map((e) => CourseVipClassModel.fromJson(e))
                 .toList();
             listModel.course = _classModelList;
             break;
           default:
-            //无
+          //无
             listModel.course = [];
             break;
         }
@@ -104,7 +101,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       for (var item in _courseModelList) {
         if (item.course.length > 0) {
           CourseListModel _sectionModel =
-              CourseListModel(item.name, item.type, []);
+          CourseListModel(item.name, item.type, []);
           _resultList.add(_sectionModel);
           _resultList.addAll(item.course);
         }
@@ -185,13 +182,13 @@ class _FTCoursePageState extends State<FTCoursePage>
               indicatorColor: Colors.blue,
               labelColor: Colors.blue,
               labelStyle: TextStyle(
-                fontSize: 22.0,
+                fontSize: 18.0,
                 color: Colors.blue,
                 fontWeight: FontWeight.w500,
               ),
               unselectedLabelColor: Color(0xffAAAAAA),
               unselectedLabelStyle: TextStyle(
-                fontSize: 22.0,
+                fontSize: 18.0,
                 color: Color(0xffAAAAAA),
               ),
               indicatorSize: TabBarIndicatorSize.label,
@@ -285,7 +282,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       height: 196,
       alignment: Alignment.topLeft,
       padding:
-          const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
+      const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
       color: Colors.grey[100],
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -340,14 +337,14 @@ class _FTCoursePageState extends State<FTCoursePage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "$model.enrollPeople 名同学已报名",
+                      model.enrollPeople + " 名同学已报名",
                       maxLines: 1,
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 14, height: 1.4),
                     ),
                     Text(
-                      "开讲时间: $model.startTime",
+                      "开讲时间: " + model.startTime,
                       maxLines: 1,
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
@@ -384,8 +381,8 @@ class _FTCoursePageState extends State<FTCoursePage>
               Positioned(
                 top: 16,
                 right: 16,
-                width: 50,
-                height: 68,
+                width: 60,
+                height: 70,
                 child: Column(
                   children: <Widget>[
                     ClipRRect(
@@ -409,11 +406,15 @@ class _FTCoursePageState extends State<FTCoursePage>
   }
 
   Widget _buildListVipItem(CourseVipClassModel model, int groupID, int idx) {
+    if (model.tList.length > 0) {
+      print(model.tList);
+    }
+
     return new Container(
-      height: 196,
+      height: 160,
       alignment: Alignment.topLeft,
       padding:
-          const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
+      const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
       color: Colors.grey[100],
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -427,106 +428,151 @@ class _FTCoursePageState extends State<FTCoursePage>
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 16, left: 16, right: 78, bottom: 74),
+                    top: 16, left: 16, right: 16, bottom: 84),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+//                    Positioned(
+//                      top: 0,
+//                      right: 0,
+//                      width: 36,
+//                      height: 21,
+//                      child: Image(
+//                        image: NetworkImage(model.tagUrl),
+//                        fit: BoxFit.cover,
+//                      ),
+//                    ),
                     Text(
-                      "大纲出来之前该如何复习",
-                      maxLines: 2,
+                      model.name,
+                      maxLines: 1,
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 18,
-                        height: 1.5,
+                        fontSize: 17,
+                        height: 1.3,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Container(
+                      width: 10,
+                      height: 4,
+                    ),
                     Text(
-                      "· 考研政治命题规律",
+                      model.subtitle,
                       maxLines: 1,
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 14, height: 1.4),
-                    ),
-                    Text(
-                      "· 复习注意事项",
-                      maxLines: 1,
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 14, height: 1.4),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 125, left: 16, right: 95, bottom: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "645 名同学已报名",
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 14, height: 1.4),
-                    ),
-                    Text(
-                      "开讲时间: 2020.12.10 19:00",
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 14, height: 1.4),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 18.0,
-                bottom: 18.0,
-                child: Container(
-                  alignment: Alignment(0, 0),
-                  height: 28,
-                  width: 76,
-                  //边框设置
-                  decoration: new BoxDecoration(
-                    //背景
-                    color: Colors.blue,
-                    //设置四周圆角 角度 这里的角度应该为 父Container height 的一半
-                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                    //设置四周边框
-                    // border: new Border.all(width: 1, color: Colors.blue),
-                  ),
-                  child: Text(
-                    "免费报名",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 16,
-                right: 16,
-                height: 68,
-                width: 50,
-                child: Column(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image(
-                        width: 50,
-                        height: 50,
-                        image: NetworkImage(
-                            "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
-                        fit: BoxFit.cover,
+                      style: TextStyle(
+                        fontSize: 13,
+                        height: 1.3,
                       ),
                     ),
-                    Text("data"),
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 16,
+                bottom: 16,
+                width: 114,
+                height: 48,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 30,
+                      height: 48,
+                      child: Column(
+                        children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image(
+                              width: 30,
+                              height: 30,
+                              image: NetworkImage(
+                                  "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Container(
+                            width: 30,
+                            height: 4,
+                          ),
+                          Text(
+                            "Teacher",
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 12,
+                      height: 48,
+                    ),
+                    Container(
+                      width: 30,
+                      height: 48,
+                      child: Column(
+                        children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image(
+                              width: 30,
+                              height: 30,
+                              image: NetworkImage(
+                                  "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Container(
+                            width: 30,
+                            height: 4,
+                          ),
+                          Text(
+                            "Teacher",
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 12,
+                      height: 48,
+                    ),
+                    Container(
+                      width: 30,
+                      height: 48,
+                      child: Column(
+                        children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image(
+                              width: 30,
+                              height: 30,
+                              image: NetworkImage(
+                                  "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Container(
+                            width: 30,
+                            height: 4,
+                          ),
+                          Text(
+                            "Teacher",
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
