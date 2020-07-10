@@ -24,6 +24,11 @@ class CourseFreeClassModel {
   String subject;
   String subtitle1;
   String subtitle2;
+  String enrollPeople;
+  String startTime;
+  String endTime;
+  String teacherName;
+  String teacherPic;
 
   CourseFreeClassModel(
     this.id,
@@ -31,6 +36,11 @@ class CourseFreeClassModel {
     this.subject,
     this.subtitle1,
     this.subtitle2,
+    this.enrollPeople,
+    this.startTime,
+    this.endTime,
+    this.teacherName,
+    this.teacherPic,
   );
 
   CourseFreeClassModel.fromJson(Map<String, dynamic> json)
@@ -38,7 +48,12 @@ class CourseFreeClassModel {
         name = json['name'],
         subject = json['subject'],
         subtitle1 = json['subtitle1'],
-        subtitle2 = json['subtitle2'];
+        subtitle2 = json['subtitle2'],
+        enrollPeople = json['enroll_people'],
+        startTime = json['start_time'],
+        endTime = json['end_time'],
+        teacherName = json['teacher_name'],
+        teacherPic = json['teacher_pic'];
 }
 
 //班课

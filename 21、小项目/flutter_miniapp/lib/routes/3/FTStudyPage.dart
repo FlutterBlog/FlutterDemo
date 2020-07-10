@@ -53,6 +53,7 @@ class _FTStudyPageState extends State<FTStudyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: new Container(
+        color: Colors.grey[100],
         alignment: Alignment.center,
         // child: _returnWidget(),
       ),

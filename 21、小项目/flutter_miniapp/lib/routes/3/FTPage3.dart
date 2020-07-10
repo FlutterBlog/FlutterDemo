@@ -31,7 +31,7 @@ class _FTPage3State extends State<FTPage3> with SingleTickerProviderStateMixin {
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabBarView = TabBarView(controller: _tabController, children: pages);
     _appBar = AppBar(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Colors.grey[100],
       elevation: 0,
       titleSpacing: 120.0,
       title: TabBar(

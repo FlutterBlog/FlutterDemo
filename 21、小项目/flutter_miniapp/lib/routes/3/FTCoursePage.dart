@@ -17,7 +17,7 @@ class FTCoursePage extends StatefulWidget {
 class _FTCoursePageState extends State<FTCoursePage>
     with SingleTickerProviderStateMixin {
   bool _isLoading;
-  List<CourseListModel> _dataList;
+  List _dataList;
   List<CourseEntModel> _endList;
   ScrollController _scrollViewController;
   TabController _tabController;
@@ -69,7 +69,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       List courseDataList = dataMap["res"]["course_list"];
       // print(courseDataList);
 
-      List _courseModelList = courseDataList.map((e) {
+      List<CourseListModel> _courseModelList = courseDataList.map((e) {
         CourseListModel listModel = CourseListModel(
           e["name"],
           e["type"],
@@ -100,9 +100,19 @@ class _FTCoursePageState extends State<FTCoursePage>
         return listModel;
       }).toList();
 
+      List _resultList = [];
+      for (var item in _courseModelList) {
+        if (item.course.length > 0) {
+          CourseListModel _sectionModel =
+              CourseListModel(item.name, item.type, []);
+          _resultList.add(_sectionModel);
+          _resultList.addAll(item.course);
+        }
+      }
+
       setState(() {
         _isLoading = false;
-        _dataList = _courseModelList;
+        _dataList = _resultList;
       });
     }, error: (error) {
       print(error);
@@ -136,7 +146,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
-            backgroundColor: Colors.grey[50],
+            backgroundColor: Colors.grey[100],
             pinned: true,
             floating: true,
             expandedHeight: 250,
@@ -144,7 +154,7 @@ class _FTCoursePageState extends State<FTCoursePage>
               collapseMode: CollapseMode.pin,
               background: Container(
                 height: double.infinity,
-                color: Colors.grey[50],
+                color: Colors.grey[100],
                 child: Container(
                   margin: EdgeInsets.only(
                       top: 20.0, left: 20.0, right: 20.0, bottom: 55),
@@ -204,8 +214,7 @@ class _FTCoursePageState extends State<FTCoursePage>
 
   Widget _buildListView(int groupID) {
     return ListView.builder(
-      itemCount: _dataList.length > 0 ? _dataList.first.course.length : 0,
-      itemExtent: 196,
+      itemCount: _dataList.length > 0 ? _dataList.length : 0,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           color: Colors.grey,
@@ -216,222 +225,315 @@ class _FTCoursePageState extends State<FTCoursePage>
   }
 
   Widget _buildListItem(int groupID, int idx) {
+    dynamic model = _dataList[idx];
+    if (model is CourseListModel) {
+      return _buildListTitleItem(model, groupID, idx);
+    } else if (model is CourseFreeClassModel) {
+      return _buildListFreeItem(model, groupID, idx);
+    } else if (model is CourseVipClassModel) {
+      return _buildListVipItem(model, groupID, idx);
+    } else {
+      return ListTile(title: Text("$groupID,$idx"));
+    }
+  }
+
+  Widget _buildListTitleItem(CourseListModel model, int groupID, int idx) {
     return new Container(
+      height: 56,
+      alignment: Alignment.topLeft,
+      padding: const EdgeInsets.only(
+          left: 24.0, right: 24.0, top: 24.0, bottom: 6.0),
+      color: Colors.grey[100],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: 4,
+            height: 12,
+            color: Colors.blue,
+          ),
+          Container(
+            width: 6,
+            height: 12,
+          ),
+          Container(
+            child: Text(
+              model.name,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildListFreeItem(CourseFreeClassModel model, int groupID, int idx) {
+    var subTitle1 = "";
+    if (model.subtitle1.length > 0) {
+      subTitle1 = "· " + model.subtitle1;
+    }
+    var subTitle2 = "";
+    if (model.subtitle2.length > 0) {
+      subTitle2 = "· " + model.subtitle2;
+    }
+
+    return new Container(
+      height: 196,
       alignment: Alignment.topLeft,
       padding:
           const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
-      color: Colors.grey[50],
-      child: ConstrainedBox(
-        constraints: BoxConstraints.expand(),
-        child: Stack(
-          alignment: Alignment.topLeft, //指定未定位或部分定位widget的对齐方式
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 16, left: 16, right: 78, bottom: 74),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "大纲出来之前该如何复习",
-                    maxLines: 2,
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 18, height: 1.5),
-                  ),
-                  Text(
-                    "· 考研政治命题规律",
-                    maxLines: 1,
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, height: 1.4),
-                  ),
-                  Text(
-                    "· 复习注意事项",
-                    maxLines: 1,
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, height: 1.4),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 125, left: 16, right: 95, bottom: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "645 名同学已报名",
-                    maxLines: 1,
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, height: 1.4),
-                  ),
-                  Text(
-                    "开讲时间：2020.12.10 19:00",
-                    maxLines: 1,
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, height: 1.4),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              right: 18.0,
-              bottom: 18.0,
-              child: Container(
-                alignment: Alignment(0, 0),
-                height: 28,
-                width: 76,
-                //边框设置
-                decoration: new BoxDecoration(
-                  //背景
-                  color: Colors.blue,
-                  //设置四周圆角 角度 这里的角度应该为 父Container height 的一半
-                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  //设置四周边框
-                  // border: new Border.all(width: 1, color: Colors.blue),
-                ),
-                child: Text(
-                  "免费报名",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                  ),
+      color: Colors.grey[100],
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.white, Colors.white]),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints.expand(),
+          child: Stack(
+            alignment: Alignment.topLeft,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 16, left: 16, right: 78, bottom: 78),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      model.name,
+                      maxLines: 2,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 1.3,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      subTitle1,
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.3),
+                    ),
+                    Text(
+                      subTitle2,
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.3),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 16,
-              right: 16,
-              height: 68,
-              width: 50,
-              child: Column(
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Image(
-                      width: 50,
-                      height: 50,
-                      image: NetworkImage(
-                          "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
-                      fit: BoxFit.cover,
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 125, left: 16, right: 95, bottom: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "$model.enrollPeople 名同学已报名",
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.4),
+                    ),
+                    Text(
+                      "开讲时间: $model.startTime",
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.4),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: 18.0,
+                bottom: 18.0,
+                child: Container(
+                  alignment: Alignment(0, 0),
+                  height: 28,
+                  width: 76,
+                  //边框设置
+                  decoration: new BoxDecoration(
+                    //背景
+                    color: Colors.blue,
+                    //设置四周圆角 角度 这里的角度应该为 父Container height 的一半
+                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                    //设置四周边框
+                    // border: new Border.all(width: 1, color: Colors.blue),
+                  ),
+                  child: Text(
+                    "免费报名",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
                     ),
                   ),
-                  Text("data"),
-                ],
+                ),
               ),
-            ),
-          ],
+              Positioned(
+                top: 16,
+                right: 16,
+                width: 50,
+                height: 68,
+                child: Column(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image(
+                        width: 50,
+                        height: 50,
+                        image: NetworkImage(model.teacherPic),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Text(model.teacherName),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
-
-    // if (groupID == 0) {
-    //   CourseListModel groupModel = _dataList.first;
-
-    //   switch (groupModel.type) {
-    //     case 1:
-    //       // CourseFreeClassModel classModel = groupModel.course[idx];
-    //       // return ListTile(title: Text(classModel.name));
-    //       return new Container(
-    //         alignment: Alignment.center,
-    //         padding: const EdgeInsets.only(
-    //             left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
-    //         color: Colors.white,
-    //         child: new Text('list item $idx'),
-    //       );
-    //     case 2:
-    //       // CourseVipClassModel classModel = groupModel.course[idx];
-    //       // return ListTile(title: Text(classModel.name));
-
-    //       return new Container(
-    //         alignment: Alignment.center,
-    //         padding: const EdgeInsets.only(
-    //             left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
-    //         color: Colors.white,
-    //         // height: 184.0,
-    //         child: new Text('list item $idx'),
-    //       );
-    //     default:
-    //       break;
-    //   }
-    // }
-    // return ListTile(title: Text("第 $idx 个条目"));
   }
 
-  // Widget _returnCustomScrollWidget() {
-  //   return Material(
-  //     child: CustomScrollView(
-  //       // SliverPersistentHeader
-  //       slivers: <Widget>[
-  //         // SliverAppBar
-  //         SliverAppBar(
-  //           pinned: true,
-  //           expandedHeight: 250.0,
-  //           flexibleSpace: FlexibleSpaceBar(
-  //             title: const Text('Demo'),
-  //             background: Image(
-  //               image: NetworkImage(
-  //                   "http://pic.sc.chinaz.com/files/pic/pic9/202006/bpic20606.jpg"),
-  //               fit: BoxFit.cover,
-  //             ),
-  //           ),
-  //         ),
-
-  //         // SliverPadding
-  //         // SliverPadding(
-  //         //   padding: const EdgeInsets.all(8.0),
-  //         //   sliver: new SliverGrid(
-  //         //     //Grid
-  //         //     gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-  //         //       crossAxisCount: 2, //Grid按两列显示
-  //         //       mainAxisSpacing: 10.0,
-  //         //       crossAxisSpacing: 10.0,
-  //         //       childAspectRatio: 4.0,
-  //         //     ),
-  //         //     delegate: new SliverChildBuilderDelegate(
-  //         //       (BuildContext context, int index) {
-  //         //         //创建子widget
-  //         //         return new Container(
-  //         //           alignment: Alignment.center,
-  //         //           color: Colors.cyan[100 * (index % 9)],
-  //         //           child: new Text('grid item $index'),
-  //         //         );
-  //         //       },
-  //         //       childCount: 20,
-  //         //     ),
-  //         //   ),
-  //         // ),
-
-  //         // SliverFixedExtentList
-  //         new SliverFixedExtentList(
-  //           itemExtent: 50.0,
-  //           delegate: new SliverChildBuilderDelegate(
-  //               (BuildContext context, int index) {
-  //             //创建列表项
-  //             return new Container(
-  //               alignment: Alignment.center,
-  //               color: Colors.lightBlue[100 * (index % 9)],
-  //               child: new Text('list item $index'),
-  //             );
-  //           }, childCount: 50 //50个列��项
-  //               ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  //   // return ListView(
-  //   //   children: _dataList
-  //   //       .map((e) => ListTile(
-  //   //             title: Text(e.name),
-  //   //           ))
-  //   //       .toList(),
-  //   // );
-  // }
+  Widget _buildListVipItem(CourseVipClassModel model, int groupID, int idx) {
+    return new Container(
+      height: 196,
+      alignment: Alignment.topLeft,
+      padding:
+          const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
+      color: Colors.grey[100],
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.white, Colors.white]),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints.expand(),
+          child: Stack(
+            alignment: Alignment.topLeft,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 16, left: 16, right: 78, bottom: 74),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "大纲出来之前该如何复习",
+                      maxLines: 2,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18,
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "· 考研政治命题规律",
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.4),
+                    ),
+                    Text(
+                      "· 复习注意事项",
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.4),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 125, left: 16, right: 95, bottom: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "645 名同学已报名",
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.4),
+                    ),
+                    Text(
+                      "开讲时间: 2020.12.10 19:00",
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14, height: 1.4),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: 18.0,
+                bottom: 18.0,
+                child: Container(
+                  alignment: Alignment(0, 0),
+                  height: 28,
+                  width: 76,
+                  //边框设置
+                  decoration: new BoxDecoration(
+                    //背景
+                    color: Colors.blue,
+                    //设置四周圆角 角度 这里的角度应该为 父Container height 的一半
+                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                    //设置四周边框
+                    // border: new Border.all(width: 1, color: Colors.blue),
+                  ),
+                  child: Text(
+                    "免费报名",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 16,
+                right: 16,
+                height: 68,
+                width: 50,
+                child: Column(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image(
+                        width: 50,
+                        height: 50,
+                        image: NetworkImage(
+                            "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Text("data"),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
