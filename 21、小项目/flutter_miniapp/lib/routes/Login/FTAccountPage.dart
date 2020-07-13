@@ -10,7 +10,7 @@ class _FTAccountPageState extends State<FTAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("账号中心"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
@@ -26,7 +26,7 @@ class _FTAccountPageState extends State<FTAccountPage> {
           children: <Widget>[
             RaisedButton(
               child: Text(
-                "Login",
+                "退出登录",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {},

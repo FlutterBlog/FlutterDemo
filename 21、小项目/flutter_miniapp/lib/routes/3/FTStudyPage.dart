@@ -35,6 +35,17 @@ class _FTStudyPageState extends State<FTStudyPage> {
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: new Container(
+        color: Colors.grey[100],
+        alignment: Alignment.center,
+        child: _returnWidget(),
+      ),
+    );
+  }
+
   Widget _returnWidget() {
     if (_isLoading) {
       return CircularProgressIndicator();
@@ -47,16 +58,5 @@ class _FTStudyPageState extends State<FTStudyPage> {
             .toList(),
       );
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: new Container(
-        color: Colors.grey[100],
-        alignment: Alignment.center,
-         child: _returnWidget(),
-      ),
-    );
   }
 }

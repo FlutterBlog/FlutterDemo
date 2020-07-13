@@ -121,6 +121,8 @@ class _FTCoursePageState extends State<FTCoursePage>
 
   @override
   Widget build(BuildContext context) {
+    print(_endList);
+
     return Scaffold(
       body: new Container(
         alignment: Alignment.center,

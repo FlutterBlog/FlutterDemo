@@ -4,7 +4,7 @@ import '../2/FTPage2.dart';
 import '../3/FTPage3.dart';
 import '../4/FTPage4.dart';
 
-// 实现一个简单的主页
+// 实现一个简单的标签页
 class FTTabBarPage extends StatefulWidget {
   @override
   _FTTabBarPageState createState() => _FTTabBarPageState();
