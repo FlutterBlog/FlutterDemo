@@ -27,11 +27,30 @@ class _FTPage4State extends State<FTPage4> {
     });
   }
 
+  _userClickAccountBtn() {
+    if (_isLogin) {
+      Navigator.pushNamed(context, "AccountPage");
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (context) => FTLoginPage(), fullscreenDialog: true),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("我的"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            onPressed: () {
+              _userClickAccountBtn();
+            },
+          ),
+        ],
         leading: Builder(builder: (context) {
           return IconButton(
             icon: Icon(Icons.photo_camera, color: Colors.white),
@@ -51,17 +70,7 @@ class _FTPage4State extends State<FTPage4> {
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
-                if (_isLogin) {
-                  Navigator.pushNamed(context, "AccountPage");
-                } else {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => FTLoginPage(),
-                        fullscreenDialog: true),
-                  );
-                }
-
-                // Navigator.pushNamed(context, "Account");
+                _userClickAccountBtn();
               },
             ),
           ],

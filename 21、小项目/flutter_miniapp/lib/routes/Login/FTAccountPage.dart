@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../base/SP/FTLocalStorage.dart';
 
 class FTAccountPage extends StatefulWidget {
   @override
@@ -6,19 +7,22 @@ class FTAccountPage extends StatefulWidget {
 }
 
 class _FTAccountPageState extends State<FTAccountPage> {
+  void _userDidLogout() {
+    Future<dynamic> loginFuture = FTLocalStorage.saveBool("FTLoginType", false);
+    loginFuture.then((value) {
+      if (value is bool) {
+        print(value);
+      }
+    }).whenComplete(() {
+      Navigator.pop(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("账号中心"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {
-              print("Icons.share");
-            },
-          ),
-        ],
       ),
       body: Center(
         child: Column(
@@ -29,7 +33,9 @@ class _FTAccountPageState extends State<FTAccountPage> {
                 "退出登录",
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
-              onPressed: () {},
+              onPressed: () {
+                _userDidLogout();
+              },
             ),
           ],
         ),

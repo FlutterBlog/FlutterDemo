@@ -27,6 +27,17 @@ class _FTPage1State extends State<FTPage1> {
     });
   }
 
+  _userClickAccountBtn() {
+    if (_isLogin) {
+      Navigator.pushNamed(context, "AccountPage");
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (context) => FTLoginPage(), fullscreenDialog: true),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +45,20 @@ class _FTPage1State extends State<FTPage1> {
         title: Text("主页"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.share),
+            icon: Icon(Icons.account_circle),
             onPressed: () {
-              print("Icons.share");
+              _userClickAccountBtn();
             },
           ),
         ],
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: Icon(Icons.share, color: Colors.white),
+            onPressed: () {
+              print("Icons.share");
+            },
+          );
+        }),
       ),
       body: Center(
         child: Column(
@@ -51,17 +70,7 @@ class _FTPage1State extends State<FTPage1> {
                 style: TextStyle(fontSize: 26.0, color: Colors.blue),
               ),
               onPressed: () {
-                if (_isLogin) {
-                  Navigator.pushNamed(context, "AccountPage");
-                } else {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => FTLoginPage(),
-                        fullscreenDialog: true),
-                  );
-                }
-
-                // Navigator.pushNamed(context, "LoginPage");
+                _userClickAccountBtn();
               },
             ),
           ],
