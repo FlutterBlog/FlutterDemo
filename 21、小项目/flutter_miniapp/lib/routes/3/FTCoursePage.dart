@@ -47,7 +47,7 @@ class _FTCoursePageState extends State<FTCoursePage>
 
       var list = resDic["ent"] as List;
       List<CourseEntModel> modelList =
-      list.map((e) => CourseEntModel.fromJson(e)).toList();
+          list.map((e) => CourseEntModel.fromJson(e)).toList();
       setState(() {
         _endList = modelList;
       });
@@ -76,21 +76,21 @@ class _FTCoursePageState extends State<FTCoursePage>
         var classDataList = listModel.course;
         switch (listModel.type) {
           case 1:
-          //公开课
+            //公开课
             List<CourseFreeClassModel> _classModelList = classDataList
                 .map((e) => CourseFreeClassModel.fromJson(e))
                 .toList();
             listModel.course = _classModelList;
             break;
           case 2:
-          //班课
+            //班课
             List<CourseVipClassModel> _classModelList = classDataList
                 .map((e) => CourseVipClassModel.fromJson(e))
                 .toList();
             listModel.course = _classModelList;
             break;
           default:
-          //无
+            //无
             listModel.course = [];
             break;
         }
@@ -101,7 +101,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       for (var item in _courseModelList) {
         if (item.course.length > 0) {
           CourseListModel _sectionModel =
-          CourseListModel(item.name, item.type, []);
+              CourseListModel(item.name, item.type, []);
           _resultList.add(_sectionModel);
           _resultList.addAll(item.course);
         }
@@ -154,7 +154,7 @@ class _FTCoursePageState extends State<FTCoursePage>
                 color: Colors.grey[100],
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: 20.0, left: 20.0, right: 20.0, bottom: 55),
+                      top: 20.0, left: 20.0, right: 20.0, bottom: 45),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image(
@@ -169,17 +169,32 @@ class _FTCoursePageState extends State<FTCoursePage>
             bottom: TabBar(
               controller: _tabController,
               tabs: [
-                Text("推荐"),
-                Text("专业课"),
-                Text("英语"),
-                Text("政治"),
-                Text("复试"),
+                Text(
+                  "推荐",
+                  style: TextStyle(height: 2.5),
+                ),
+                Text(
+                  "专业课",
+                  style: TextStyle(height: 2.5),
+                ),
+                Text(
+                  "英语",
+                  style: TextStyle(height: 2.5),
+                ),
+                Text(
+                  "政治",
+                  style: TextStyle(height: 2.5),
+                ),
+                Text(
+                  "复试",
+                  style: TextStyle(height: 2.5),
+                ),
               ],
               indicatorWeight: 1,
-              indicatorPadding: EdgeInsets.only(left: 10, right: 10),
-              labelPadding: EdgeInsets.symmetric(horizontal: 10),
-              isScrollable: true,
               indicatorColor: Colors.blue,
+              indicatorPadding: EdgeInsets.only(left: 10, right: 10),
+              labelPadding: EdgeInsets.symmetric(horizontal: 16),
+              isScrollable: true,
               labelColor: Colors.blue,
               labelStyle: TextStyle(
                 fontSize: 18.0,
@@ -188,7 +203,7 @@ class _FTCoursePageState extends State<FTCoursePage>
               ),
               unselectedLabelColor: Color(0xffAAAAAA),
               unselectedLabelStyle: TextStyle(
-                fontSize: 18.0,
+                fontSize: 16.0,
                 color: Color(0xffAAAAAA),
               ),
               indicatorSize: TabBarIndicatorSize.label,
@@ -214,7 +229,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       itemCount: _dataList.length > 0 ? _dataList.length : 0,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          color: Colors.grey,
+          color: Colors.grey[100],
           child: _buildListItem(groupID, index),
         );
       },
@@ -282,7 +297,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       height: 196,
       alignment: Alignment.topLeft,
       padding:
-      const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
+          const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
       color: Colors.grey[100],
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -414,7 +429,7 @@ class _FTCoursePageState extends State<FTCoursePage>
       height: 160,
       alignment: Alignment.topLeft,
       padding:
-      const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
+          const EdgeInsets.only(left: 24.0, right: 24.0, top: 6.0, bottom: 6.0),
       color: Colors.grey[100],
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -477,100 +492,41 @@ class _FTCoursePageState extends State<FTCoursePage>
                 width: 114,
                 height: 48,
                 child: Row(
+                  children: _buildTeacherList(model.tList),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 85, left: 150, right: 16, bottom: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  textDirection: TextDirection.ltr,
                   children: <Widget>[
                     Container(
-                      width: 30,
-                      height: 48,
-                      child: Column(
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image(
-                              width: 30,
-                              height: 30,
-                              image: NetworkImage(
-                                  "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            width: 30,
-                            height: 4,
-                          ),
-                          Text(
-                            "Teacher",
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      "¥ " + model.price,
+                      maxLines: 1,
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 22,
+                        height: 1.18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange,
                       ),
                     ),
-                    Container(
-                      width: 12,
-                      height: 48,
-                    ),
-                    Container(
-                      width: 30,
-                      height: 48,
-                      child: Column(
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image(
-                              width: 30,
-                              height: 30,
-                              image: NetworkImage(
-                                  "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            width: 30,
-                            height: 4,
-                          ),
-                          Text(
-                            "Teacher",
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 12,
-                      height: 48,
-                    ),
-                    Container(
-                      width: 30,
-                      height: 48,
-                      child: Column(
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image(
-                              width: 30,
-                              height: 30,
-                              image: NetworkImage(
-                                  "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            width: 30,
-                            height: 4,
-                          ),
-                          Text(
-                            "Teacher",
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
+                    Text(
+                      model.uNums + " 名同学已报名",
+                      maxLines: 1,
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1.5,
+                        color: Colors.black38,
                       ),
                     ),
                   ],
@@ -580,6 +536,69 @@ class _FTCoursePageState extends State<FTCoursePage>
           ),
         ),
       ),
+    );
+  }
+
+  List<Widget> _buildTeacherList(List tList) {
+    List<Widget> _teacherList = [];
+    if (tList.length < 1) {
+      return _teacherList;
+    }
+
+    for (var i = 0; i < tList.length; i++) {
+      Map map = tList[i];
+      if (i == 0) {
+        _teacherList.add(_buildTeacherCell(map));
+      } else {
+        _teacherList.add(_buildTeacherSpace());
+        _teacherList.add(_buildTeacherCell(map));
+      }
+      if (i == 2) {
+        break;
+      }
+    }
+    return _teacherList;
+  }
+
+  Widget _buildTeacherCell(Map map) {
+    return Container(
+      width: 30,
+      height: 48,
+      child: Column(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image(
+              width: 30,
+              height: 30,
+              image: NetworkImage(
+                // "http://bpic.588ku.com/element_origin_min_pic/01/49/81/695744871999d35.jpg",
+                map["img"],
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            width: 30,
+            height: 4,
+          ),
+          Text(
+            // "Teacher",
+            map["name"],
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 10),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTeacherSpace() {
+    return Container(
+      width: 12,
+      height: 48,
     );
   }
 }
