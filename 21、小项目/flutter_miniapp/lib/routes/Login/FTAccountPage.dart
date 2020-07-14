@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../base/SP/FTLocalStorage.dart';
+import 'package:flutter_miniapp/base/Tools/EventBus.dart';
+import 'package:flutter_miniapp/base/Tools/FTLocalStorage.dart';
 
 class FTAccountPage extends StatefulWidget {
   @override
@@ -13,8 +14,9 @@ class _FTAccountPageState extends State<FTAccountPage> {
       if (value is bool) {
         print(value);
       }
-    }).whenComplete(() {
       Navigator.pop(context);
+    }).whenComplete(() {
+      eventBus.fire(FTLoginTypeEvent(false));
     });
   }
 

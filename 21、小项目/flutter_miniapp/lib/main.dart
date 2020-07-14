@@ -7,8 +7,7 @@ import 'routes/3/FTPage3.dart';
 import 'routes/4/FTPage4.dart';
 import 'routes/Login/FTLoginPage.dart';
 import 'routes/Login/FTAccountPage.dart';
-
-import 'base/SP/FTLocalStorage.dart';
+import 'package:flutter_miniapp/base/Tools/FTLocalStorage.dart';
 
 // 程序主函数
 void main() => runApp(MyApp());

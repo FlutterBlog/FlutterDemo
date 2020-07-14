@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Login/FTLoginPage.dart';
-import '../../base/SP/FTLocalStorage.dart';
+import 'package:flutter_miniapp/base/Tools/EventBus.dart';
+import 'package:flutter_miniapp/base/Tools/FTLocalStorage.dart';
+import 'package:flutter_miniapp/routes/Login/FTLoginPage.dart';
 
 class FTPage1 extends StatefulWidget {
   @override
@@ -9,21 +10,52 @@ class FTPage1 extends StatefulWidget {
 
 class _FTPage1State extends State<FTPage1> {
   var _isLogin = false;
+  var _subScription;
 
   @override
   void initState() {
     super.initState();
     _checkLogin();
+
+    // 添加订阅
+    _subScription = eventBus.on<FTLoginTypeEvent>().listen((event) {
+      print(event.loginType);
+      setState(() {
+        _isLogin = event.loginType;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    //取消订阅
+    _subScription.cancel();
   }
 
   _checkLogin() {
     Future<dynamic> loginFuture = FTLocalStorage.getBool("FTLoginType");
     loginFuture.then((value) {
       if (value is bool) {
+        print("111 Future.then.value");
+        print(value);
         setState(() {
           _isLogin = value;
         });
       }
+    }).whenComplete(() {
+      setState(() {});
+    });
+  }
+
+  void _userClearLocalData() {
+    Future<dynamic> loginFuture = FTLocalStorage.clear();
+    loginFuture.then((value) {
+      if (value is bool) {
+        print(value);
+      }
+    }).whenComplete(() {
+      print('Future.whenComplete');
     });
   }
 
@@ -71,6 +103,15 @@ class _FTPage1State extends State<FTPage1> {
               ),
               onPressed: () {
                 _userClickAccountBtn();
+              },
+            ),
+            RaisedButton(
+              child: Text(
+                "清除缓存",
+                style: TextStyle(fontSize: 26.0, color: Colors.blue),
+              ),
+              onPressed: () {
+                _userClearLocalData();
               },
             ),
           ],

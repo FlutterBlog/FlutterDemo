@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_miniapp/base/Tools/FTLocalStorage.dart';
 
 // 实现一个简单的引导页
 class FTGuidePage extends StatefulWidget {
@@ -77,7 +78,15 @@ class _FTGuidePageState extends State<FTGuidePage> {
                 ),
               ),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, "TabBarHome");
+                Future<dynamic> loginFuture =
+                    FTLocalStorage.saveBool("FTFirstLaunch", true);
+                loginFuture.then((value) {
+                  if (value is bool) {
+                    print(value);
+                  }
+                }).whenComplete(() {
+                  Navigator.pushReplacementNamed(context, "TabBarHome");
+                });
               },
             ),
           ),

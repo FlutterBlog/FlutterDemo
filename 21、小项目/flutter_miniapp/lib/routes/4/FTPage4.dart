@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Login/FTLoginPage.dart';
-import '../../base/SP/FTLocalStorage.dart';
+import 'package:flutter_miniapp/base/Tools/EventBus.dart';
+import 'package:flutter_miniapp/base/Tools/FTLocalStorage.dart';
+import 'package:flutter_miniapp/routes/Login/FTLoginPage.dart';
 
 class FTPage4 extends StatefulWidget {
   @override
@@ -9,11 +10,27 @@ class FTPage4 extends StatefulWidget {
 
 class _FTPage4State extends State<FTPage4> {
   var _isLogin = false;
+  var _subScription;
 
   @override
   void initState() {
     super.initState();
     _checkLogin();
+
+    // 添加订阅
+    _subScription = eventBus.on<FTLoginTypeEvent>().listen((event) {
+      print(event.loginType);
+      setState(() {
+        _isLogin = event.loginType;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    //取消订阅
+    _subScription.cancel();
   }
 
   _checkLogin() {
