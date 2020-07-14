@@ -84,6 +84,7 @@ class FTNetManager {
       dio.options.connectTimeout = 100000; // 服务器链接超时，毫秒
       dio.options.receiveTimeout = 30000; // 响应流上前后两次接受到数据的间隔，毫秒
       dio.options.headers.addAll(headersMap); // 添加headers,统一设置Header
+      dio.interceptors.add(LogInterceptor(requestBody: true));
 
       switch (method) {
         case NMMethod.POST:
