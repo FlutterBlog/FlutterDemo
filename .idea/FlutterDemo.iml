@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/1、基础组件/flutter_demo_iterm/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/1、基础组件/flutter_demo_iterm/build" />
+      <excludeFolder url="file://$MODULE_DIR$/21、学习项目/flutter_miniapp/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/21、学习项目/flutter_miniapp/build" />
+      <excludeFolder url="file://$MODULE_DIR$/2、布局组件/flutter_app_as/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/2、布局组件/flutter_app_as/build" />
+      <excludeFolder url="file://$MODULE_DIR$/31、商城项目/flutter_shop/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/31、商城项目/flutter_shop/build" />
+      <excludeFolder url="file://$MODULE_DIR$/3、容器组件/flutter_demo_vs/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/3、容器组件/flutter_demo_vs/build" />
+      <excludeFolder url="file://$MODULE_DIR$/4、滚动组件/flutter_demo_vs/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/4、滚动组件/flutter_demo_vs/build" />
+      <excludeFolder url="file://$MODULE_DIR$/5、功能组件/flutter_demo_vs/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/5、功能组件/flutter_demo_vs/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+  </component>
+</module>
